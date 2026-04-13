@@ -1,16 +1,9 @@
 import { defineConfig, devices } from '@playwright/test';
+import dotenv from 'dotenv';
+import path from 'path';
+// 讀取 .env 檔案
+dotenv.config({ path: path.resolve(__dirname, '.env') });
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
-
-/**
- * See https://playwright.dev/docs/test-configuration.
- */
 export default defineConfig({
   testDir: './tests',
   /* Run tests in files in parallel */
@@ -29,7 +22,11 @@ export default defineConfig({
     // baseURL: 'http://localhost:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    // 這樣你就可以在全域使用 process.env.BASE_URL
+    baseURL: process.env.BASE_URL,
+    // 開啟失敗截圖功能（只需要 1 秒）
+    screenshot: 'only-on-failure',
+    trace: 'retain-on-failure',
   },
 
   /* Configure projects for major browsers */
