@@ -6,7 +6,7 @@ test.describe('練習專案：POM 登入功能驗證', () => {
   test('成功登入 - 應該導向成功頁面', async ({ page }) => {
     const loginPage = new LoginPage(page);
     
-    await page.goto(process.env.BASE_URL || '/');
+  await page.goto(process.env.BASE_URL!);
     await loginPage.login(process.env.TEST_USER || '', process.env.TEST_PASS || '');
     
     // 驗證：網址正確且看到登出按鈕
@@ -17,7 +17,7 @@ test.describe('練習專案：POM 登入功能驗證', () => {
   test('失敗登入 - 應該顯示錯誤訊息', async ({ page }) => {
     const loginPage = new LoginPage(page);
     
-    await page.goto('https://practicetestautomation.com/practice-test-login/');
+    await page.goto(process.env.BASE_URL!);
     await loginPage.login('wrongUser', 'wrongPass');
     
     // 驗證：錯誤提示訊息出現
